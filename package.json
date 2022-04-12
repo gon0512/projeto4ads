@@ -1,0 +1,24 @@
+{
+  "name": "linkjobs",
+  "version": "1.0.0",
+  "description": "Projeto dos alunos do 4 periodo do curso de ADS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "git",
+    "freela"
+  ],
+  "author": "Layon",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15"
+  }
+}
