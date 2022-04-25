@@ -18,9 +18,17 @@ app.post('/signin', (req, res) => {
         pass: '12345@'
     }
 
+    const jwtPass = md5('senhaSecreta')
+
     if(user.login === fakeUser.login) {
         if(md5(user.pass) === md5(fakeUser.pass)){
-            res.json({message: 'Usuário logado com sucesso!'})
+            const jwtPayload = {
+                login: 'l.figueiroa',
+                role: 'pleno-developer',
+                idNumber: '12345ABC'
+            }
+            const token = jwt.sign(jwtPayload, jwtPass)
+            res.json({message: 'Usuário logado com sucesso!', token})
         }
         else {
             res.status(401).json({message: 'Login ou senha incorreto!'})
