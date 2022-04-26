@@ -6,4 +6,7 @@ module.exports = app => {
 
     app.route('/users')
         .get(controllers.users)
+
+    app.route('/users/:userId')
+        .get(controllers.show)
 }
