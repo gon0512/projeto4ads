@@ -8,8 +8,6 @@ exports.signin = (req, res) => {
         pass: '12345@'
     }
 
-    const jwtPass = md5('senhaSecreta')
-
     if(user.login === fakeUser.login) {
         if(md5(user.pass) === md5(fakeUser.pass)){
             const jwtPayload = {
@@ -17,7 +15,7 @@ exports.signin = (req, res) => {
                 role: 'pleno-developer',
                 idNumber: '12345ABC'
             }
-            const token = jwt.sign(jwtPayload, jwtPass)
+            const token = jwt.sign(jwtPayload, process.env.JWT_KEY)
             res.json({message: 'Usuário logado com sucesso!', token})
         }
         else {
