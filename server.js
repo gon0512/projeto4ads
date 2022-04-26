@@ -9,8 +9,4 @@ app.use(express.urlencoded({extended: true}))
 
 routes(app)
 
-app.get('/', (req, res) => {
-    res.json({Mensagem: 'Hello World!'})
-})
-
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`))
