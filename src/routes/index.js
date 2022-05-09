@@ -8,5 +8,6 @@ module.exports = app => {
         .get(controllers.users)
 
     app.route('/users/:userId')
-        .get(controllers.show)
+        .get(controllers.show
+            )
 }
