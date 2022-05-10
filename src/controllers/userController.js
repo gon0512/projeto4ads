@@ -1,19 +1,41 @@
 const jwt = require('jsonwebtoken')
 const md5 = require('crypto-md5')
+const User = require('../models/users')
 
-exports.signin = (req, res) => {
-    const { user } = req.body
-    const fakeUser = {
-        login: 'l.figueiroa',
-        pass: '12345@'
+exports.userCreate = async (req, res) => {
+    const { name, email, password } = req.body
+
+    try {
+        const newUser = await User.create({
+            name, 
+            email, 
+            password: md5(password)
+        })
+    
+        res.json(newUser)
+        res.status(200)
+    
+    } catch (error) {
+        res.json({message: "Deu ruim!"})
+        console.log(error)
     }
+}
 
-    if(user.login === fakeUser.login) {
-        if(md5(user.pass) === md5(fakeUser.pass)){
+exports.signin = async (req, res) => {
+    const { user } = req.body
+
+    console.log(user)
+    
+    const user_bd = await User.findOne({where: {email: user.login}})
+
+    if(user.login === user_bd.email) {
+        if(md5(user.password) === user_bd.password){
+            console.log("Passou aqui!")
             const jwtPayload = {
-                login: 'l.figueiroa',
+                name: user_bd.name,
+                email: user_bd.email,
                 role: 'pleno-developer',
-                idNumber: '12345ABC'
+                idNumber: user_bd.id
             }
             const token = jwt.sign(jwtPayload, process.env.JWT_KEY)
             res.json({message: 'Usuário logado com sucesso!', token})
