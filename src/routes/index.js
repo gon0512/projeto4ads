@@ -1,3 +1,5 @@
+const auth = require('../middlewares/auth')
+
 module.exports = app => {
     const controllers = require('../controllers/userController')
 
@@ -5,7 +7,7 @@ module.exports = app => {
         .post(controllers.signin)
 
     app.route('/users')
-        .get(controllers.users)
+        .get(auth, controllers.users)
         .post(controllers.userCreate)
 
     app.route('/users/:userId')
